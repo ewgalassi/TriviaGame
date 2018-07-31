@@ -104,9 +104,10 @@ $(document).ready(function() {
     var questionCount = 0;
     var userAnswer;
     var readyGame = true;
+    var current;
 
     function nextQuestion() {
-        var current = questionBank[questionCount];
+        current = questionBank[questionCount];
         $("#question").text(current.question);
         $("#answer1").text(current.answer1);
         $("#answer2").text(current.answer2);
@@ -120,11 +121,20 @@ $(document).ready(function() {
         readyGame = false;
     };
 
-    $("#answer1").click(nextQuestion);
+    $("#answer1").click(function() {
+        if (readyGame) {
+            nextQuestion();
+            readyGame = false;  
+        }
+    });
 
     $("li").click(function() {
         userAnswer = this.click;
-
+        if (userAnswer === current.correct.value) {
+            $("#rightWrong").text("You are correct!");
+        } else {
+            $("#rightWrong").text("That is incorrect");
+        }
     });
     
 
