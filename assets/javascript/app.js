@@ -105,8 +105,15 @@ $(document).ready(function() {
     var userAnswer;
     var readyGame = true;
     var current;
+    var tooLate = false;
+    var timeoutId;
+    var correct = 0;
+    var incorrect = 0;
+    var timeLeft = 20;
 
     function nextQuestion() {
+        clearTimeout(timeoutId);
+        tooLate = false;
         current = questionBank[questionCount];
         $("#question").text(current.question);
         $("#answer1").text(current.answer1);
@@ -114,26 +121,60 @@ $(document).ready(function() {
         $("#answer3").text(current.answer3);
         $("#answer4").text(current.answer4);
         questionCount++;
+        intervalId = setInterval(timer, 1000);
+        timeoutId = setTimeout(answerQuestion, 20000);
     }
 
-    if (readyGame) {
+    function endGame() {
+        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+        $("#numberRight").text("You answered " + correct + " questions correctly!");
+        $("#numberWrong").text("You answered " + incorrect + " questions incorrectly");
+        $("#startButton").text("Click here to try again!")
+        readyGame = true;
+        questionCount = 0;
+    }
 
-        readyGame = false;
-    };
+    function answerQuestion() {
+        $("#rightWrong").text("Time is up!");
+        clearInterval(intervalId);
+        timeoutId = setTimeout(nextQuestion, 3000);
+        tooLate = true;
+        incorrect++;
+        if (questionCount === 10) {
+            endGame();
+        }
+    }
 
-    $("#answer1").click(function() {
+    function timer() {
+        timeLeft--;
+        $("#timeLeft").text(timeLeft);
+    }
+
+    $("#startButton").click(function() {
         if (readyGame) {
             nextQuestion();
-            readyGame = false;  
+            readyGame = false;
+            $("h2").removeClass("hidden");
         }
     });
 
     $("li").click(function() {
-        userAnswer = this.click;
-        if (userAnswer === current.correct.value) {
-            $("#rightWrong").text("You are correct!");
-        } else {
-            $("#rightWrong").text("That is incorrect");
+        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+        if (!readyGame) {
+            userAnswer = $(this).attr("id");
+            if (userAnswer === current.correct && tooLate === false) {
+                $("#rightWrong").text("You are correct!");
+                correct++;
+            } else if (userAnswer !== current.correct && tooLate === false) {
+                $("#rightWrong").text("That is incorrect");
+                incorrect++;
+            };
+            timeoutId = setTimeout(nextQuestion, 3000);
+        };
+        if (questionCount === 10) {
+            endGame();
         }
     });
     
