@@ -135,6 +135,8 @@ $(document).ready(function() {
         unhighlight();
         clearTimeout(timeoutId);
         clearInterval(intervalId);
+        $("#numberRight").removeClass("hidden");
+        $("#numberWrong").removeClass("hidden");
         $("#numberRight").text("You answered " + correct + " questions correctly!");
         $("#numberWrong").text("You answered " + incorrect + " questions incorrectly");
         $("#startButton").text("Click here to try again!");
@@ -155,7 +157,9 @@ $(document).ready(function() {
         $("#answerImage").html(current.answerImage);
         document.getElementById(current.correct).classList.add("correct");
         clearInterval(intervalId);
-        timeoutId = setTimeout(nextQuestion, 5000);
+        if (questionCount < 10) {
+            timeoutId = setTimeout(nextQuestion, 5000);
+        }
         tooLate = true;
         incorrect++;
         if (questionCount === 10) {
@@ -186,6 +190,8 @@ $(document).ready(function() {
             readyGame = false;
             $("#startButton").fadeOut(1000);
             $("h2").removeClass("hidden");
+            $("#numberRight").addClass("hidden");
+            $("#numberWrong").addClass("hidden");
             correct = 0;
             incorrect = 0;
         }
@@ -208,10 +214,12 @@ $(document).ready(function() {
                 document.getElementById(current.correct).classList.add("correct");
                 incorrect++;
             };
-            timeoutId = setTimeout(nextQuestion, 5000);
+            if (questionCount < 10) {
+                timeoutId = setTimeout(nextQuestion, 5000);
+            }
         };
         if (questionCount === 10) {
-            timeoutId = setTimeout(endGame, 4000);
+            timeoutId = setTimeout(endGame, 5000);
         }
     });
     
