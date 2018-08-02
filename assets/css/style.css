@@ -1,3 +1,56 @@
+body {
+    background-image: url("../images/hogwarts.jpg");
+    background-size: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Spirax', cursive;
+    font-size: 56px;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 36px;
+    color: rgb(184, 0, 0);
+}
+
+button {
+    text-align: center;
+    font-family: 'Reenie Beanie', cursive;
+    font-size: 30px;
+    padding: 10px;
+    background-color: rgb(10, 218, 3);
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+li {
+    padding-left: 80px;
+    font-family: 'Montez', cursive;
+    font-size: 36px;
+}
+
+ul {
+    float: left;
+}
+
+#question {
+    text-align: center;
+    margin: 0 auto;
+    font-family: 'Cherry Swash', cursive;
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+#rightWrong {
+    font-family: 'Tangerine', cursive;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
 .hidden {
     visibility: hidden;
 }

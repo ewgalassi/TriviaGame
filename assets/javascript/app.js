@@ -5,7 +5,7 @@ $(document).ready(function() {
         answer2: "Professor McGonagall",
         answer3: "Madam Pomfrey",
         answer4: "Professor Sprout",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/professor-sprout.jpg'>",
         correct: "answer4"
     }
 
@@ -15,7 +15,7 @@ $(document).ready(function() {
         answer2: "Inferius Curse",
         answer3: "Avada Kedavra",
         answer4: "Imperius Curse",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/inferi.jpg'>",
         correct: "answer2"
     }
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
         answer2: "Wormtail",
         answer3: "Prongs",
         answer4: "Padfoot",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/marauders.jpg'>",
         correct: "answer3"
     }
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
         answer2: "Mr. Weasley",
         answer3: "Sirius Black",
         answer4: "Hagrid always owned it!",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/motorbike.jpg'>",
         correct: "answer3"   
     }
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
         answer2: "Nearly Headless Nick",
         answer3: "The Grey Lady",
         answer4: "The Fat Friar",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/bloody-baron.jpg'>",
         correct: "answer1"
     }
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
         answer2: "Hufflepuff",
         answer3: "Ravenclaw",
         answer4: "Gryffindor",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/gryffindor-crest.jpg'>",
         correct: "answer4"
     }
 
@@ -65,7 +65,7 @@ $(document).ready(function() {
         answer2: "A photo album",
         answer3: "The Mirror of Erised",
         answer4: "A dream",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/mirror-of-erised.jpg'>",
         correct: "answer3"
     }
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
         answer2: "A remembrall",
         answer3: "A golf ball",
         answer4: "Neville's toad",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/remembrall.gif'>",
         correct: "answer2"
     }
 
@@ -85,7 +85,7 @@ $(document).ready(function() {
         answer2: "Diagon Alley",
         answer3: "Platform 9 3/4",
         answer4: "An old department store",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/st-mungos.jpg'>",
         correct: "answer4"
     }
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
         answer2: "6",
         answer3: "7",
         answer4: "8",
-        answerImage: "<img src='#'>",
+        answerImage: "<img src='assets/images/horcruxes.jpg'>",
         correct: "answer3"
     }
 
@@ -113,6 +113,8 @@ $(document).ready(function() {
 
     function nextQuestion() {
         clearTimeout(timeoutId);
+        $("#answerImage").html("");
+        $("#rightWrong").text("");
         tooLate = false;
         current = questionBank[questionCount];
         $("#question").text(current.question);
@@ -121,6 +123,7 @@ $(document).ready(function() {
         $("#answer3").text(current.answer3);
         $("#answer4").text(current.answer4);
         questionCount++;
+        timeLeft = 20;
         intervalId = setInterval(timer, 1000);
         timeoutId = setTimeout(answerQuestion, 20000);
     }
@@ -130,15 +133,16 @@ $(document).ready(function() {
         clearInterval(intervalId);
         $("#numberRight").text("You answered " + correct + " questions correctly!");
         $("#numberWrong").text("You answered " + incorrect + " questions incorrectly");
-        $("#startButton").text("Click here to try again!")
+        $("#startButton").text("Click here to try again!");
         readyGame = true;
         questionCount = 0;
     }
 
     function answerQuestion() {
         $("#rightWrong").text("Time is up!");
+        $("#answerImage").html(current.answerImage);
         clearInterval(intervalId);
-        timeoutId = setTimeout(nextQuestion, 3000);
+        timeoutId = setTimeout(nextQuestion, 5000);
         tooLate = true;
         incorrect++;
         if (questionCount === 10) {
@@ -155,6 +159,7 @@ $(document).ready(function() {
         if (readyGame) {
             nextQuestion();
             readyGame = false;
+            $("#startButton").addClass("hidden");
             $("h2").removeClass("hidden");
         }
     });
@@ -162,6 +167,7 @@ $(document).ready(function() {
     $("li").click(function() {
         clearTimeout(timeoutId);
         clearInterval(intervalId);
+        $("#answerImage").html(current.answerImage);
         if (!readyGame) {
             userAnswer = $(this).attr("id");
             if (userAnswer === current.correct && tooLate === false) {
@@ -171,7 +177,7 @@ $(document).ready(function() {
                 $("#rightWrong").text("That is incorrect");
                 incorrect++;
             };
-            timeoutId = setTimeout(nextQuestion, 3000);
+            timeoutId = setTimeout(nextQuestion, 5000);
         };
         if (questionCount === 10) {
             endGame();
