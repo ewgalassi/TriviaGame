@@ -24,16 +24,33 @@ button {
     background-color: rgb(10, 218, 3);
     border-radius: 5px;
     font-weight: bolder;
+    position: absolute;
+    top: 20%;
+    left: 42%;
+}
+
+ul {
+    list-style-type: none;
 }
 
 li {
     padding-left: 80px;
     font-family: 'Montez', cursive;
-    font-size: 36px;
+    font-size: 36px;    
 }
 
-ul {
+img {
+    max-width: 80%;
+}
+
+#form {
     float: left;
+    width: 50%;
+}
+
+#response {
+    float: right;
+    width: 40%;
 }
 
 #question {
@@ -46,7 +63,7 @@ ul {
 
 #rightWrong {
     font-family: 'Tangerine', cursive;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: bold;
     text-align: center;
 }
