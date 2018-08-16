@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var question1 = {
         question: "Who is the head of Hufflepuff House?",
         answer1: "Professor Flitwick",
@@ -36,7 +36,7 @@ $(document).ready(function() {
         answer3: "Sirius Black",
         answer4: "Hagrid always owned it!",
         answerImage: "<img src='assets/images/motorbike.gif'>",
-        correct: "answer3"   
+        correct: "answer3"
     }
 
     var question5 = {
@@ -177,14 +177,14 @@ $(document).ready(function() {
         $("li").removeClass("incorrect");
     };
 
-    $("#startButton").hover(function() {
+    $("#startButton").hover(function () {
         $(this).css("background-color", "rgb(179, 255, 0)")
-    }, function() {
+    }, function () {
         $(this).css("background-color", "rgb(10, 218, 3)")
     });
 
 
-    $("#startButton").click(function() {
+    $("#startButton").click(function () {
         if (readyGame) {
             nextQuestion();
             readyGame = false;
@@ -197,7 +197,7 @@ $(document).ready(function() {
         }
     });
 
-    $("li").click(function() {
+    $("li").click(function () {
         clearInterval(intervalId);
         $("#answerImage").html(current.answerImage);
         if (!readyGame && !answered) {
@@ -222,6 +222,6 @@ $(document).ready(function() {
             timeoutId = setTimeout(endGame, 5000);
         }
     });
-    
+
 
 })
